@@ -23,6 +23,7 @@ jobs:
         
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: ./expense-tracker-angular
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_EXPENSE_TRACKER_FF7A9 }}'
           channelId: live
