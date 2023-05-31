@@ -19,7 +19,7 @@ jobs:
 
       - name: Build
         run: npm run build
-        working-directory: ./expense-tracker-angular/dist
+        working-directory: ./expense-tracker-angular
         
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
