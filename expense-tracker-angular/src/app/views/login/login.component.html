@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="login-container" *ngIf="!isLoggedIn && !isLoading"> 
+    <mat-card class="login-card">
+        <mat-card-header style="justify-content: center;">
+            <mat-card-title style="margin: 0 0 20px 0;">Sign in</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div style="display: flex; justify-content: center;">
+                <form style="width: 80%;" [formGroup]="form" (ngSubmit)="login()">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-card-actions style="justify-content: space-between;">
+                        <button mat-raised-button class="big-button" type="submit" color="primary" [disabled]="!form.valid" *ngIf="!isLoggingIn">Login</button>
+                        <button mat-raised-button class="big-button" color="basic" *ngIf="isLoggingIn" disabled>
+                            <mat-spinner color="primary" diameter="20"></mat-spinner>
+                        </button>
+                        <button mat-raised-button class="big-button" (click)="goBack()" type="button">Back</button>
+                    </mat-card-actions>
+                    <p style="text-align: center; margin-top: 20px;">New around here? <a routerLink="/signup">Sign up
+                            with us</a></p>
+                </form>
+            </div>
+            <!-- Divider -->
+            <div style="display: flex; align-items: center;">
+                <div style="flex: 1; height: 1px; background-color: grey; margin-bottom: 10px;"></div>
+            </div>
+            <firebase-ui 
+                (signInSuccessWithAuthResult)="successCallback($event)" 
+                (signInFailure)="errorCallback($event)"
+                (uiShown)="uiShownCallback()">
+            </firebase-ui>
+        </mat-card-content>
+    </mat-card>
+</div>
