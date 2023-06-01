@@ -1,1 +1,47 @@
-<p>sign-up works!</p>
+<div class="signup-container" *ngIf="isInitialized">
+    <mat-card class="signup-card">
+        <mat-card-header style="justify-content: center;">
+            <mat-card-title style="margin: 0 0 20px 0;">Sign up</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div style="display: flex; justify-content: center;">
+                <form style="width: 80%;" [formGroup]="form" (ngSubmit)="signup()">
+                    
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="firstName">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lastName">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" formControlName="email">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <mat-card-actions style="justify-content: space-between;">
+                        <button mat-raised-button class="big-button" type="submit" color="primary"
+                            [disabled]="!form.valid" *ngIf="!isLoading">Register</button>
+                        <button mat-raised-button class="big-button" color="basic" *ngIf="isLoading" disabled>
+                            <mat-spinner color="primary" diameter="20"></mat-spinner>
+                        </button>
+                        <button mat-raised-button class="big-button" (click)="goBack()" type="button">Back</button>
+                    </mat-card-actions>
+                    <p style="text-align: center; margin-top: 20px;">Already have an account? <a routerLink="/login">Sign in instead</a></p>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

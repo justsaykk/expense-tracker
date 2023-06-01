@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.authState$.pipe(take(1)).forEach((user: User | null) => this.isLoggedIn = !!user)
+    this.authService.authState$.pipe(take(1)).forEach((u: User | null) => this.isLoggedIn = !!u)
       .then(() => {
         if (this.isLoggedIn) {
           this.router.navigateByUrl("/")
