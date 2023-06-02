@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Auth, UserCredential, authState, signInWithEmailAndPassword, user } from '@angular/fire/auth';
+import { Auth, UserCredential, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, user } from '@angular/fire/auth';
 import { LoginData } from '../models/Login';
 import { FirebaseAuthError } from '../models/FirebaseAuthError';
+import { SignUpData } from '../models/SignUp';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class FirebaseAuthService {
   public logout() { this.auth.signOut() }
 
   public async login(data: LoginData) {
-      return await signInWithEmailAndPassword(this.auth, data.email, data.password)
+    return await signInWithEmailAndPassword(this.auth, data.email, data.password)
+  }
+
+  public async signUp(data: SignUpData) {
+    return await createUserWithEmailAndPassword(this.auth, data.email, data.password)
   }
 }

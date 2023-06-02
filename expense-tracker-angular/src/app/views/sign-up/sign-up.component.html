@@ -20,11 +20,22 @@
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Email</mat-label>
                         <input matInput type="email" formControlName="email">
+                        <mat-error *ngIf="form.controls['email'].hasError('email')">Enter a valid email address</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Enter your password</mat-label>
                         <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <p class="password-minlength">Minimum length: 6</p>
+
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
                         <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
                             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
