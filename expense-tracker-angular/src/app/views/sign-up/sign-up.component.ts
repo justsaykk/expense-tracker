@@ -2,13 +2,15 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { User, UserCredential } from '@angular/fire/auth';
 import { DocumentReference } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { SignUpData } from 'src/app/models/SignUp';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { CustomValidators } from 'src/app/validators/match-validator.directive';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,6 +23,7 @@ export class SignUpComponent implements OnInit {
   isLoading: boolean = false;
   isInitialized: boolean = false;
   hide: boolean = true; //Password masking
+  matcher = new MyErrorStateMatcher()
 
   constructor(
     private location: Location,
@@ -91,16 +94,39 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  createForm() {
-    return this.fb.group({
-      firstName: this.fb.control('', [Validators.required]),
-      lastName: this.fb.control('', [Validators.required]),
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: this.fb.control('', [Validators.required, Validators.minLength(6)]),
-    })
+
+  createForm(): FormGroup {
+    return new FormGroup({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required])
+    }, {validators: CustomValidators.MatchValidator("password", "confirmPassword")})
+  }
+
+  get passwordMatchError(): boolean {
+    console.log(this.form.errors?.['mismatch'] &&
+    this.form.controls['confirmPassword'].dirty);
+    
+    return (
+      this.form.errors?.['mismatch'] &&
+      this.form.controls['confirmPassword'].dirty
+    )
+  }
+
+  get getErrors() {
+    return typeof (this.form.errors?.['mismatch'] && this.form.controls['confirmPassword'].dirty)
   }
 
 
   goBack(): void {this.location.back()}
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = control && control.invalid;
+    const invalidParent = control && control.parent && control.parent.invalid;
+    return (invalidCtrl! || invalidParent!) && (control.dirty || control.touched);
+  }
 }

@@ -19,7 +19,7 @@
 
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Email</mat-label>
-                        <input matInput type="email" formControlName="email">
+                        <input matInput type="email" placeholder="youremail@email.com" formControlName="email">
                         <mat-error *ngIf="form.controls['email'].hasError('email')">Enter a valid email address</mat-error>
                     </mat-form-field>
 
@@ -30,16 +30,23 @@
                             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
+                        <mat-error *ngIf="form.controls['password'].hasError('required')">This is a required field</mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('minlength')">Password must be at least 8 characters long</mat-error>
                     </mat-form-field>
-                    <p class="password-minlength">Minimum length: 6</p>
 
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Confirm password</mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword">
-                        <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
-                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
+                        <input 
+                            [errorStateMatcher]="matcher"
+                            matInput type="password" 
+                            formControlName="confirmPassword">
+                        <mat-error 
+                            *ngIf="passwordMatchError && 
+                            !form.controls['confirmPassword'].hasError('required')">
+                            Passwords does not match</mat-error>
+                        <mat-error 
+                            *ngIf="form.controls['confirmPassword'].hasError('required')">
+                            This is a required field</mat-error>
                     </mat-form-field>
 
                     <mat-card-actions style="justify-content: space-between;">
