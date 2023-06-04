@@ -6,8 +6,7 @@ export class CustomValidators {
             const sourceControl = control.get(source);
             const targetControl = control.get(target);
             return sourceControl && targetControl && sourceControl.value !== targetControl.value ?
-            {mismatch: true} :
-            {mismatch: false}
+            {mismatch: true} : null
         }
     }
 }

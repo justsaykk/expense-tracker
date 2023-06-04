@@ -11,3 +11,11 @@
 mat-form-field {
     margin-bottom: 5px;
 }
+
+.name-container {
+    display: flex;
+}
+
+.spacer {
+    margin: 0% 2% 0% 2%;
+}

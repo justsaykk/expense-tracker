@@ -6,21 +6,23 @@
         <mat-card-content>
             <div style="display: flex; justify-content: center;">
                 <form style="width: 80%;" [formGroup]="form" (ngSubmit)="signup()">
-                    
-                    <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>First Name</mat-label>
-                        <input matInput formControlName="firstName">
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput formControlName="lastName">
-                    </mat-form-field>
+                    <div class="name-container">
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>First Name</mat-label>
+                            <input matInput formControlName="firstName">
+                        </mat-form-field>
+                        <div class="spacer"></div>
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput formControlName="lastName">
+                        </mat-form-field>
+                    </div>
 
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Email</mat-label>
                         <input matInput type="email" placeholder="youremail@email.com" formControlName="email">
-                        <mat-error *ngIf="form.controls['email'].hasError('email')">Enter a valid email address</mat-error>
+                        <mat-error *ngIf="form.controls['email'].hasError('email')">Enter a valid email
+                            address</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" style="width: 100%;">
@@ -30,23 +32,19 @@
                             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
-                        <mat-error *ngIf="form.controls['password'].hasError('required')">This is a required field</mat-error>
-                        <mat-error *ngIf="form.controls['password'].hasError('minlength')">Password must be at least 8 characters long</mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('required')">This is a required
+                            field</mat-error>
+                        <mat-error *ngIf="form.controls['password'].hasError('minlength')">Password must be at least 8
+                            characters long</mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Confirm password</mat-label>
-                        <input 
-                            [errorStateMatcher]="matcher"
-                            matInput type="password" 
+                        <input [errorStateMatcher]="confirmErrorMatcher" matInput type="password"
                             formControlName="confirmPassword">
-                        <mat-error 
-                            *ngIf="passwordMatchError && 
-                            !form.controls['confirmPassword'].hasError('required')">
-                            Passwords does not match</mat-error>
-                        <mat-error 
-                            *ngIf="form.controls['confirmPassword'].hasError('required')">
-                            This is a required field</mat-error>
+                        <mat-error *ngIf="passwordMatchError()"> Passwords does not match</mat-error>
+                        <mat-error *ngIf="form.controls['confirmPassword'].hasError('required')">This is a required
+                            field</mat-error>
                     </mat-form-field>
 
                     <mat-card-actions style="justify-content: space-between;">
@@ -57,7 +55,8 @@
                         </button>
                         <button mat-raised-button class="big-button" (click)="goBack()" type="button">Back</button>
                     </mat-card-actions>
-                    <p style="text-align: center; margin-top: 20px;">Already have an account? <a routerLink="/login">Sign in instead</a></p>
+                    <p style="text-align: center; margin-top: 20px;">Already have an account? <a
+                            routerLink="/login">Sign in instead</a></p>
                 </form>
             </div>
         </mat-card-content>

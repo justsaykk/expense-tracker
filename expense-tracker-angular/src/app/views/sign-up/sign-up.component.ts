@@ -23,24 +23,22 @@ export class SignUpComponent implements OnInit {
   isLoading: boolean = false;
   isInitialized: boolean = false;
   hide: boolean = true; //Password masking
-  matcher = new MyErrorStateMatcher()
 
   constructor(
     private location: Location,
-    private fb: FormBuilder,
     private authService: FirebaseAuthService,
     private router: Router,
     private _snackBar: MatSnackBar,
     private firestoreService: FirestoreService,
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
-      await this.authService.authState$.pipe(take(1)).forEach((u: User | null) => {this.isLoggedIn = !!u})
-      if (this.isLoggedIn) {
-        this.router.navigateByUrl("/")
-      }
-      this.form = this.createForm();
-      this.isInitialized = true;
+    await this.authService.authState$.pipe(take(1)).forEach((u: User | null) => { this.isLoggedIn = !!u })
+    if (this.isLoggedIn) {
+      this.router.navigateByUrl("/")
+    }
+    this.form = this.createForm();
+    this.isInitialized = true;
   }
 
   async signup() {
@@ -60,12 +58,12 @@ export class SignUpComponent implements OnInit {
     } catch (error: any) {
       switch (error["code"]) {
         case "auth/weak-password":
-          this._snackBar.open("Weak Password", 'Dismiss', {verticalPosition: 'top'})
+          this._snackBar.open("Weak Password", 'Dismiss', { verticalPosition: 'top' })
           this.form.controls['password'].reset();
           break;
-        
+
         case "auth/email-already-in-use":
-          this._snackBar.open("Email in use", 'Dismiss', {verticalPosition: 'top'})
+          this._snackBar.open("Email in use", 'Dismiss', { verticalPosition: 'top' })
           this.form.controls['email'].reset();
           this.form.controls['password'].reset();
           break;
@@ -102,31 +100,26 @@ export class SignUpComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required])
-    }, {validators: CustomValidators.MatchValidator("password", "confirmPassword")})
-  }
-
-  get passwordMatchError(): boolean {
-    console.log(this.form.errors?.['mismatch'] &&
-    this.form.controls['confirmPassword'].dirty);
-    
-    return (
-      this.form.errors?.['mismatch'] &&
-      this.form.controls['confirmPassword'].dirty
+    },
+      CustomValidators.MatchValidator("password", "confirmPassword")
     )
   }
 
-  get getErrors() {
-    return typeof (this.form.errors?.['mismatch'] && this.form.controls['confirmPassword'].dirty)
+  passwordMatchError(): boolean {
+    return (
+      this.form.errors?.['mismatch'] &&
+      this.form.controls['confirmPassword'].dirty &&
+      !this.form.controls['confirmPassword'].hasError('required')
+    )
   }
 
-
-  goBack(): void {this.location.back()}
-}
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const invalidCtrl = control && control.invalid;
-    const invalidParent = control && control.parent && control.parent.invalid;
-    return (invalidCtrl! || invalidParent!) && (control.dirty || control.touched);
+  confirmErrorMatcher: ErrorStateMatcher = { // this weird object is needed to deal with angular material's problem
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean => {
+      const controlInvalid = control?.touched && control.invalid;
+      const formInvalid = control?.touched && this.form.get('password')?.touched && this.form.invalid
+      return controlInvalid! || formInvalid!;
+    }
   }
+
+  goBack(): void { this.location.back() }
 }
