@@ -1,0 +1,21 @@
+.signup-container {
+    width: fit-content;
+    max-width: 80%;
+    margin: 5% auto 5% auto;
+}
+
+.big-button {
+    width: 40%;
+}
+
+mat-form-field {
+    margin-bottom: 5px;
+}
+
+.name-container {
+    display: flex;
+}
+
+.spacer {
+    margin: 0% 2% 0% 2%;
+}
