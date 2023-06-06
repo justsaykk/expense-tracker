@@ -16,12 +16,12 @@ import { SignUpComponent } from './views/sign-up/sign-up.component';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import { AngularFireModule } from '@angular/fire/compat';
 import { DashComponent } from './views/dash/dash.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { LayoutModule } from '@angular/cdk/layout';
+import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MonthlyTrendComponent } from './components/charts/monthly-trend/monthly-trend.component';
+import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
+import { ExpensesByCategoryComponent } from './components/charts/expenses-by-category/expenses-by-category';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -39,7 +39,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    DashComponent
+    DashComponent,
+    DashboardCardComponent,
+    MonthlyTrendComponent,
+    BarChartComponent,
+    ExpensesByCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFireModule.initializeApp(environment.firebase), //Needed for UI Module
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig), MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, LayoutModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig), 
+    LayoutModule, 
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
