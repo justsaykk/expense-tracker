@@ -20,7 +20,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 import { NgChartsModule } from 'ng2-charts';
 import { MonthlyTrendComponent } from './components/charts/monthly-trend/monthly-trend.component';
-import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { ExpensesByCategoryComponent } from './components/charts/expenses-by-category/expenses-by-category';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -42,7 +41,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     DashComponent,
     DashboardCardComponent,
     MonthlyTrendComponent,
-    BarChartComponent,
     ExpensesByCategoryComponent
   ],
   imports: [

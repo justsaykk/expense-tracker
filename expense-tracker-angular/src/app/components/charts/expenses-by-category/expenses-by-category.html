@@ -1,10 +1,9 @@
 <div class="chartContainer">
-  <canvas baseChart
-    [datasets]="pieChartDatasets"
-    [labels]="pieChartLabels"
-    [type]="'pie'"
-    [options]="pieChartOptions"
-    [plugins]="pieChartPlugins"
-    [legend]="pieChartLegend">
+  <canvas baseChart class="chart"
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="barChartType"
+    (chartClick)="chartClicked($event)">
   </canvas>
 </div>

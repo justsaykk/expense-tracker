@@ -3,19 +3,23 @@
   <mat-grid-list cols="{{ (cardLayout | async)?.columns }}" rowHeight="200px">
 
     <!-- Mini card tiles -->
-    <mat-grid-tile 
-      *ngFor="let i of [1, 2, 3, 4]" 
-      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+    <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
       <app-dashboard-card></app-dashboard-card>
     </mat-grid-tile>
-
-    <mat-grid-tile 
-      *ngFor="let i of [5, 6, 7, 8]" 
-      [colspan]="( cardLayout | async )?.chart?.cols"
-      [rowspan]="( cardLayout | async )?.chart?.rows">
-     <app-dashboard-card title="Card {{i}}"><div>Chart Content Here</div></app-dashboard-card>
-   </mat-grid-tile>
+    
+    <!-- Normal card tiles -->
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart?.cols" [rowspan]="( cardLayout | async )?.chart?.rows">
+      <app-dashboard-card title="Expenses By Category">
+        <app-expenses-by-category></app-expenses-by-category>
+      </app-dashboard-card>
+    </mat-grid-tile>
+    
+    <mat-grid-tile [colspan]="( cardLayout | async )?.chart?.cols" [rowspan]="( cardLayout | async )?.chart?.rows">
+      <app-dashboard-card title="Monthly Trend">
+        <app-monthly-trend></app-monthly-trend>
+      </app-dashboard-card>
+    </mat-grid-tile>
 
    <!--Table-->
    <mat-grid-tile 
