@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardMinicardComponent } from './components/dashboard-minicard/dashboard-minicard.component';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { AddExpenseComponent } from './components/add-expense/add-expense.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -51,7 +52,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ExpensesByCategoryComponent,
     TableComponent,
     SidenavComponent,
-    DashboardMinicardComponent
+    DashboardMinicardComponent,
+    AddExpenseComponent
   ],
   imports: [
     BrowserModule,
