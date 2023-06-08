@@ -1,11 +1,24 @@
 <mat-card class="dashboard-card">
     <mat-card-content class="dashboard-card-content">
-        <div class="miniCard-container">
+        <div *ngIf="isInitializing">
+            <ngx-shimmer-loading height="100px"></ngx-shimmer-loading>
+            <ngx-shimmer-loading></ngx-shimmer-loading>
+            <ngx-shimmer-loading></ngx-shimmer-loading>
+        </div>
+        <div *ngIf="!isInitializing">
             <div class="miniCard-info">
-                <mat-icon>paid</mat-icon>
+                <mat-icon color="{{iconColor}}">{{icon}}</mat-icon>
+                <div class="spacer"></div>
+                <h1>{{value | currency: 'SGD'}}</h1>
             </div>
-            <div class="miniCard-title"></div>
-            <div class="miniCard-analysis"></div>
+            <div class="miniCard-title">
+                <p>{{title}}</p>
+            </div>
+            <div class="miniCard-analysis">
+                <p class="analysis">
+                    <span [style.color]="analysisColor">{{sign}}{{signValue | percent}}</span> since last month
+                </p>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

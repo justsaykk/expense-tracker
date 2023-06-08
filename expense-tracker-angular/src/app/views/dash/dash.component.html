@@ -5,7 +5,7 @@
     <!-- Mini card tile -->
     <mat-grid-tile *ngFor="let i of [1, 2, 3, 4]" [colspan]="( cardLayout | async )?.miniCard?.cols"
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
-      <app-dashboard-card></app-dashboard-card>
+      <app-dashboard-minicard></app-dashboard-minicard>
     </mat-grid-tile>
 
     <!-- Normal card tiles -->

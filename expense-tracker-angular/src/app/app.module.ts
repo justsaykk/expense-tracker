@@ -27,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardMinicardComponent } from './components/dashboard-minicard/dashboard-minicard.component';
+import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -66,6 +67,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig), 
     LayoutModule, 
     NgChartsModule, MatTableModule, MatPaginatorModule, MatSortModule,
+    NgxShimmerLoadingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
