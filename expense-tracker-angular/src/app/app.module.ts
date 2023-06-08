@@ -21,6 +21,12 @@ import { DashboardCardComponent } from './components/dashboard-card/dashboard-ca
 import { NgChartsModule } from 'ng2-charts';
 import { MonthlyTrendComponent } from './components/charts/monthly-trend/monthly-trend.component';
 import { ExpensesByCategoryComponent } from './components/charts/expenses-by-category/expenses-by-category';
+import { TableComponent } from './components/table/table.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { DashboardMinicardComponent } from './components/dashboard-minicard/dashboard-minicard.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -41,7 +47,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     DashComponent,
     DashboardCardComponent,
     MonthlyTrendComponent,
-    ExpensesByCategoryComponent
+    ExpensesByCategoryComponent,
+    TableComponent,
+    SidenavComponent,
+    DashboardMinicardComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireModule.initializeApp(environment.firebase), //Needed for UI Module
     FirebaseUIModule.forRoot(firebaseUiAuthConfig), 
     LayoutModule, 
-    NgChartsModule,
+    NgChartsModule, MatTableModule, MatPaginatorModule, MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
