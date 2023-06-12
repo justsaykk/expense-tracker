@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./dash.component.css']
 })
 export class DashComponent {
+  isOver: boolean = false;
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
   /** Based on the screen size, switch from standard to one column per row */
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -30,5 +33,7 @@ export class DashComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  addTransaction() {
+    // Open a dialog form to add transaction
+  }
 }

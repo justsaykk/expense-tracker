@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.authService.authState$.pipe(take(1)).forEach((u: User | null) => { this.isLoggedIn = !!u })
     if (this.isLoggedIn) {
-      this.router.navigateByUrl("/")
+      this.router.navigateByUrl("/dashboard")
     }
     this.form = this.createForm();
     this.isInitialized = true;
@@ -54,7 +54,7 @@ export class SignUpComponent implements OnInit {
     try {
       user = await this.authService.signUp(signUpData)
       this.isLoading = false;
-      this.router.navigateByUrl("/")
+      this.router.navigateByUrl("/dashboard")
     } catch (error: any) {
       switch (error["code"]) {
         case "auth/weak-password":
@@ -81,15 +81,15 @@ export class SignUpComponent implements OnInit {
     }
 
     let docRef: DocumentReference = await this.firestoreService.createNewUser(userData)
-    if (docRef) {
+    if (!docRef) {
+      this._snackBar.open("Something went wrong. Please try again later", "Dismiss", {
+        verticalPosition: 'top',
+        duration: 10000
+      })
       this.isLoading = false;
-      this.router.navigateByUrl("/")
     }
-
-    this._snackBar.open("Something went wrong. Please try again later", "Dismiss", {
-      verticalPosition: 'top',
-      duration: 10000
-    })
+    this.isLoading = false;
+    this.router.navigateByUrl("/dashboard")
   }
 
 
