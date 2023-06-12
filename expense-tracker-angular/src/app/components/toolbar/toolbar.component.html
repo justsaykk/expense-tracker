@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <button mat-icon-button (click)="toggleSideNav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="example-spacer"></span>
+    <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button class="avatar-button" [matMenuTriggerFor]="userMenu">
+        <ngx-avatar *ngIf="user?.photoURL" [src]="user?.photoURL" size="30"></ngx-avatar>
+        <ngx-avatar *ngIf="!user?.photoURL" [name]="user?.email" size="30"></ngx-avatar>
+    </button>
+    <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
