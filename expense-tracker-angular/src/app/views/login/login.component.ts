@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       password: this.form.value["password"]
     }
     this.authService.login(loginData)
-      .then(() => this.router.navigateByUrl("/"))
+      .then(() => this.router.navigateByUrl("/dashboard"))
       .catch((error: FirebaseAuthError) => {  //Handle login errors
         switch (error.code) {
           case "auth/user-not-found":
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
 
   // Code for firebaseAuth UI
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult){
-    this.router.navigate(["/"]);
+    this.router.navigate(["/dashboard"]);
    }
     
   errorCallback(errorData: FirebaseUISignInFailure){
