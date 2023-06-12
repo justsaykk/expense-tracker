@@ -1,3 +1,40 @@
 mat-sidenav {
     min-width: 15%;
 }
+
+mat-toolbar > img {
+    height: 50%;
+}
+
+mat-toolbar > h3 {
+    margin: 0%;
+    font-size: large;
+}
+
+.spacer {
+    margin: 2%;
+}
+
+.sidenav-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+}
+
+.sidenav-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10%;
+}
+
+.sidenav-profile > h2 {
+    padding-top: 10%;
+    margin-bottom: 0%;
+}
+
+.sidenav-profile > h3 {
+    color: grey;
+}

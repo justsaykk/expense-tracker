@@ -1,6 +1,18 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side" opened>
-        <h1>Hello World!</h1>
+        <mat-toolbar>
+            <img src="assets/KK_logo_dark.png">
+            <span class="spacer"></span>
+            <h3>Expense Tracker</h3>
+        </mat-toolbar>
+        <div class="sidenav-container">
+            <div class="sidenav-profile">
+                <ngx-avatar *ngIf="user?.photoURL" [src]="user?.photoURL" size="120"></ngx-avatar>
+                <ngx-avatar *ngIf="!user?.photoURL" [name]="user?.email" size="120"></ngx-avatar>
+                <h2>{{userDisplayName}}</h2>
+                <h3>{{user?.email}}</h3>
+            </div>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-toolbar [sidenav]="sidenav"></app-toolbar>

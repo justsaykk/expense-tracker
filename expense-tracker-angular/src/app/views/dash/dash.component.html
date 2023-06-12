@@ -29,3 +29,12 @@
     </mat-grid-tile>
   </mat-grid-list>
 </div>
+
+<button mat-fab color="primary" (click)="addTransaction()"
+    class="menu-button"
+    [class.mat-elevation-z2]="!isOver"
+    [class.mat-elevation-z8]="isOver"
+    (mouseover)="isOver = true"
+    (mouseleave)="isOver = false">
+  <mat-icon>add</mat-icon>
+</button>
