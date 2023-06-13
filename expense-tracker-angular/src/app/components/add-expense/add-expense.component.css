@@ -1,0 +1,37 @@
+.add-expense-container {
+    padding: 2%;
+}
+
+.row-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-field {
+    flex: 1.5;
+}
+
+.value-field {
+    flex: 1;
+}
+
+.remove-button-wrapper {
+    margin-left: auto;
+}
+
+.add-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.remove-button {
+    position: relative;
+    top: -10.5px;
+}
+
+.spacer {
+    flex-grow: 1;
+}

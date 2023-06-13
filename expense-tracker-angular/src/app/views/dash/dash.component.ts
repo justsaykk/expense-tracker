@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddExpenseComponent } from 'src/app/components/add-expense/add-expense.component';
 
 @Component({
   selector: 'app-dash',
@@ -11,7 +12,11 @@ import { Observable } from 'rxjs';
 export class DashComponent {
   isOver: boolean = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog,
+    ) {}
+
   /** Based on the screen size, switch from standard to one column per row */
   cardLayout = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -34,6 +39,6 @@ export class DashComponent {
   );
 
   addTransaction() {
-    // Open a dialog form to add transaction
+    this.dialog.open(AddExpenseComponent)
   }
 }
