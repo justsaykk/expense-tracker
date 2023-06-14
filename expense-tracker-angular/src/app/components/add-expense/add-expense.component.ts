@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { NewTransaction } from 'src/app/models/NewTransaction';
+import { BackendService } from 'src/app/services/backend.service';
+import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import { User } from '@angular/fire/auth'
 
 @Component({
   selector: 'app-add-expense',
@@ -9,9 +14,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddExpenseComponent implements OnInit {
   form!: FormGroup
+  user!: User;
+  isLoading: boolean = false;
 
   constructor(
     private dialogRef: MatDialogRef<AddExpenseComponent>,
+    private backendSvc: BackendService,
+    private authSvc: FirebaseAuthService,
   ) { }
 
   ngOnInit(): void {
@@ -27,8 +36,8 @@ export class AddExpenseComponent implements OnInit {
 
   addRow(): void {
     const newFormGroup: FormGroup = new FormGroup({
-      description: new FormControl(''),
-      value: new FormControl(0),
+      description: new FormControl('', [Validators.required]),
+      value: new FormControl(5, [Validators.required]),
       category: new FormControl('')
     })
     this.rows.push(newFormGroup);
@@ -38,8 +47,17 @@ export class AddExpenseComponent implements OnInit {
     this.rows.removeAt(index);
   }
   
-  submit() {
-    console.log(this.form.value)
+  async submit() {
+    if (this.form.invalid) {return}
+    this.isLoading = true;
+    const newTransactions: NewTransaction[] = this.form.value.rows;
+    await this.authSvc.user$.pipe(take(1)).forEach((u) => this.user = u!);
+    await this.backendSvc.postData(newTransactions, this.user.uid);
+    this.isLoading = false;
+    this.dialogRef.close();
+  }
+
+  close() {
     this.dialogRef.close()
   }
 }

@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <button mat-icon-button (click)="toggleSideNav()">
+    <button mat-icon-button (click)="toggleSideNav()" *ngIf="user">
         <mat-icon>menu</mat-icon>
     </button>
     <span class="example-spacer"></span>

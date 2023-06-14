@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { User } from '@angular/fire/auth';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit{
+export class ToolbarComponent implements OnInit, OnDestroy{
   @Input() sidenav!: MatSidenav;
   avatarSrc!: string;
   user!: User | null;
+  user$!: Subscription;
 
   constructor(
     private authService: FirebaseAuthService,
@@ -21,11 +22,15 @@ export class ToolbarComponent implements OnInit{
     ) { }
 
   async ngOnInit(): Promise<void> {
-    await this.authService.user$.pipe(take(1)).forEach((user: User | null) => this.user = user)
+    this.user$ = this.authService.user$.subscribe((user: User | null) => this.user = user)
     if (null === this.user?.photoURL) {
       // Get photo from storage. Else return static value
     }
     this.avatarSrc = this.user?.photoURL!
+  }
+
+  ngOnDestroy(): void {
+      this.user$.unsubscribe();
   }
 
   toggleSideNav() {

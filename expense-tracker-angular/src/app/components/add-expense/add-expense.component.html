@@ -1,5 +1,11 @@
 <div mat-dialog-content class="add-expense-container">
-    <h2>Add Expenses here</h2>
+    <div class="dialog-header">
+        <h2>Add Expenses here</h2>
+        <div class="spacer"></div>
+        <button mat-icon-button class="close-button" (click)="close()" tabindex="-1">
+            <mat-icon class="close-icon">clear</mat-icon>
+        </button>
+    </div>
     <form [formGroup]="form">
         <div formArrayName="rows" *ngFor="let row of rows.controls; let i = index">
             <ng-container [formGroupName]="i">
@@ -15,15 +21,19 @@
                     <mat-form-field appearance="outline">
                         <input matInput placeholder="Category" formControlName="category">
                     </mat-form-field>
+                    
                     <button mat-icon-button (click)="removeRow(i)" class="remove-button">
-                        <mat-icon>clear</mat-icon>
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </div>
             </ng-container>
         </div>
     </form>
     <div mat-dialog-actions class="add-button-wrapper">
-        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid" *ngIf="!isLoading">Submit</button>
+        <button mat-raised-button color="basic" *ngIf="isLoading" disabled>
+            <mat-spinner color="primary" diameter="20"></mat-spinner>
+        </button>
         <div class="spacer"></div>
         <button mat-raised-button color="accent" (click)="addRow()">Add Row</button>
     </div>
