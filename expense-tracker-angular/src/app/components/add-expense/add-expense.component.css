@@ -1,0 +1,62 @@
+.add-expense-container {
+    padding: 2%;
+    min-width: 708px;
+    min-height: 223.31px;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+}
+
+.row-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-field {
+    flex: 1.5;
+}
+
+.value-field {
+    flex: 1;
+}
+
+.remove-button-wrapper {
+    margin-left: auto;
+}
+
+.add-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 16px;
+    padding: 0%;
+}
+
+.remove-button {
+    position: relative;
+    top: -10.5px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+button {
+    width: 150px;
+    min-width: 100px;
+    white-space: nowrap;
+    min-width: auto;
+}
+
+.close-button {
+    position: relative;
+    top: -15px;
+    left: 14px;
+}
+
+h2 {
+    color: black;
+}

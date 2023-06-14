@@ -18,7 +18,6 @@ export class DashboardMinicardComponent implements OnInit{
   ngOnInit(): void {  
       this.isInitializing = true;
       setTimeout(() => {
-        console.log("initializing")
         this.isInitializing = false;
       }, 5000);
   }

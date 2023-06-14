@@ -13,7 +13,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore'
 import { LoginComponent } from './views/login/login.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
-import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
+import { firebase, firebaseui, FirebaseUIModule } from 'firebaseui-angular';
 import { AngularFireModule } from '@angular/fire/compat';
 import { DashComponent } from './views/dash/dash.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { DashboardMinicardComponent } from './components/dashboard-minicard/dashboard-minicard.component';
 import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
+import { AddExpenseComponent } from './components/add-expense/add-expense.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AvatarModule } from 'ngx-avatar';
 
@@ -54,7 +55,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     TableComponent,
     SidenavComponent,
     DashboardMinicardComponent,
-    ToolbarComponent
+    AddExpenseComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
