@@ -1,0 +1,2 @@
+<ngx-avatar *ngIf="user?.photoURL" [src]="user?.photoURL" [size]="avatarSize"></ngx-avatar>
+<ngx-avatar *ngIf="!user?.photoURL" [src]="avatarSrc" [size]="avatarSize"></ngx-avatar>

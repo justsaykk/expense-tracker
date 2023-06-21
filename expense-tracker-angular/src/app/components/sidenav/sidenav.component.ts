@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,30 +10,26 @@ import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent implements OnInit, OnDestroy {
-  avatarSrc!: string;
   user$!: Subscription;
   user!: User | null;
   userDisplayName!: string;
 
-  constructor(private authService: FirebaseAuthService) {}
+  constructor(
+    private authService: FirebaseAuthService,
+    ) {}
 
   async ngOnInit() {
     this.user$ = this.authService.user$.subscribe((user: User | null) => {
       this.user = user; 
-      this.setUserData();
+      this.setUserData(user!);
     });
   }
 
-  setUserData() {
-    if (!this.user?.photoURL) {
-      // Get photo from storage. Else return static value
+  async setUserData(user: User) {
+    if (!user.displayName) {
+      this.userDisplayName = user.email?.split('@')[0]!;
     } else {
-      this.avatarSrc = this.user?.photoURL!;
-    }
-    if (!this.user?.displayName) {
-      this.userDisplayName = this.user?.email?.split('@')[0]!;
-    } else {
-      this.userDisplayName = this.user?.displayName!;
+      this.userDisplayName = user?.displayName!;
     }
   }
 

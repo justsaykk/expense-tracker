@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DashboardMinicardComponent implements OnInit{
   isInitializing!: boolean;
-  @Input() icon: string = 'paid'
+  @Input() icon: string = 'monetization_on'
   @Input() iconColor: string = 'basic'
   @Input() value: number = 10
   @Input() title: string = 'Loading...'

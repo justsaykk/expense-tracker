@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { User } from '@angular/fire/auth';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({

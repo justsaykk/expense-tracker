@@ -31,6 +31,9 @@ import { NgxShimmerLoadingModule } from 'ngx-shimmer-loading';
 import { AddExpenseComponent } from './components/add-expense/add-expense.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AvatarModule } from 'ngx-avatar';
+import { EditProfileComponent } from './views/edit-profile/edit-profile.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -57,6 +60,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     DashboardMinicardComponent,
     AddExpenseComponent,
     ToolbarComponent,
+    EditProfileComponent,
+    AvatarComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +73,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase), //Needed for UI Module
     FirebaseUIModule.forRoot(firebaseUiAuthConfig), 
     LayoutModule, 

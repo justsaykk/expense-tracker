@@ -45,8 +45,7 @@ export class SignUpComponent implements OnInit {
     this.isLoading = true;
     let user: UserCredential | null = null;
     let signUpData: SignUpData = {
-      firstName: this.form.value["firstName"],
-      lastName: this.form.value["lastName"],
+      name: this.form.value["name"],
       email: this.form.value["email"],
       password: this.form.value["password"]
     }
@@ -76,8 +75,7 @@ export class SignUpComponent implements OnInit {
     let userData = {
       uid: user?.user.uid!,
       email: user?.user.email!,
-      firstName: signUpData.firstName,
-      lastName: signUpData.lastName
+      name: signUpData.name,
     }
 
     let docRef: DocumentReference = await this.firestoreService.createNewUser(userData)
@@ -95,8 +93,7 @@ export class SignUpComponent implements OnInit {
 
   createForm(): FormGroup {
     return new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl('', [Validators.required])

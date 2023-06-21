@@ -7,8 +7,7 @@
         </mat-toolbar>
         <div class="sidenav-container">
             <div class="sidenav-profile">
-                <ngx-avatar *ngIf="user?.photoURL" [src]="user?.photoURL" size="120"></ngx-avatar>
-                <ngx-avatar *ngIf="!user?.photoURL" [name]="user?.email" size="120"></ngx-avatar>
+                <app-avatar avatarSize="120"></app-avatar>
                 <h2>{{userDisplayName}}</h2>
                 <h3>{{user?.email}}</h3>
             </div>

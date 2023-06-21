@@ -1,0 +1,48 @@
+<div class="edit-container" *ngIf="isInitialized">
+  <mat-card class="signup-card">
+    <mat-card-header style="justify-content: center">
+      <mat-card-title style="margin: 0 0 20px 0">Edit Profile</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="display: flex; justify-content: center">
+        <form style="width: 80%" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="name-container">
+            <mat-form-field appearance="outline" style="width: 100%">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" placeholder="youremail@email.com" formControlName="email" />
+            <mat-error *ngIf="form.controls['email'].hasError('email')">Enter a valid email address</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Change Profile Picture</mat-label>
+            <mat-toolbar>
+              <input matInput [value]="fileName" style="font-size: 16px; font-weight: normal;">
+            </mat-toolbar>
+            <input type="file" class="file-input" accept="image/jpeg" (change)="onFileSelected($event)" id="fileInput">
+            <mat-icon matSuffix>upload</mat-icon>
+          </mat-form-field>
+
+
+          <mat-card-actions style="justify-content: space-between">
+            <button mat-raised-button class="big-button" type="submit" color="primary" [disabled]="!form.valid"
+              *ngIf="!isLoading">
+              Register
+            </button>
+            <button mat-raised-button class="big-button" color="basic" *ngIf="isLoading" disabled>
+              <mat-spinner color="primary" diameter="20"></mat-spinner>
+            </button>
+            <button mat-raised-button class="big-button" (click)="goBack()" type="button">
+              Back
+            </button>
+          </mat-card-actions>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
