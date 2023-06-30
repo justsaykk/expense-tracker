@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,12 +20,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   user$!: Subscription;
   user!: User;
   file!: File;
-  fileName: string = "No file selected";
-
+  fileName: string = 'No file selected';
 
   constructor(
     private authSvc: FirebaseAuthService,
     private firestoreSvc: FirestoreService,
+    private storageService: StorageService,
     private location: Location,
     private router: Router
   ) {}
@@ -39,15 +40,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  submit() {}
-
   async createForm(user: User) {
     let doc: any = await this.firestoreSvc.getUserDetails(user.uid);
-    console.log(doc);
     this.form = new FormGroup({
-      name: new FormControl(doc["name"], [Validators.required]),
-      email: new FormControl(doc["email"], [Validators.required]),
-    })
+      name: new FormControl(doc['name'], [Validators.required]),
+      email: new FormControl(doc['email'], [Validators.required]),
+    });
   }
 
   onFileSelected(event: any) {
@@ -57,6 +55,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  async submit() {
+    await this.storageService.uploadFile(this.file)
+    await this.firestoreSvc.editUser()
+    window.location.reload();
+  }
 
   goBack() {
     this.location.back();

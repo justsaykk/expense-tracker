@@ -20,15 +20,15 @@ export class FirestoreService {
   async getUserDetails(uid: string) {
     const q = query(this.userProfileReference, where('uid', '==', uid))
     const querySnapshot = await getDocs(q);
-    const doc = querySnapshot.docs[0].data()
-    return {
-      ...doc,
-      profilePicture: ""
-    }
+    return querySnapshot.docs[0].data();
   }
 
 
   async createNewUser(userData: UserData) {
     return await addDoc(this.userProfileReference, userData);
+  }
+
+  editUser() {
+    
   }
 }
